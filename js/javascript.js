@@ -7,31 +7,32 @@ let url6 = 'https://oc-devweb-p5-api.herokuapp.com/api/furniture';
 
 let urlImg = 'https://m.media-amazon.com/images/I/71yf785aBmL._AC_SX450_.jpg';
 
-function createDiv(divId, productName, productPrice, productDesc, imgUrl) {
+function createDiv(divId, productName, productPrice, productDesc, productId, imgUrl) {
     
     document.getElementById(divId).innerHTML+=
     // '<div id="" class="col"><span class="label-name">Name: </span><span class="name">'+productName+'</span></div>'+
     // '<div id="" class="col"><span class="label-price">Price: </span><span class="price">'+productPrice+'€</span></div>'+
     // '<div id="" class="col"><span class="label-description">Description: </span><span class="description">'+productDesc+'</span></div>';
     '<div class="card bg-light col-lg-6 col-xl-4 mt-2">'+
-        '<img class=”card-img-top” src=”' + imgUrl + '” alt=”' + productDesc + '”>'+
-        '<div class="card-body">'+
-            '<h5 class="card-title">' + productName + '</h5>'+
-            '<p class="card-text text-right">' + productPrice + '€</p>'+
-        '</div>'+
+        '<a class="stretched-link" href="pages/product.html"></a>'+
+            '<img class=”card-img-top img-fluid” src=' + imgUrl + ' alt=”' + productDesc + '”>'+
+            '<div class="card-body">'+
+                '<h5 class="card-title">' + productName + '</h5>'+
+                '<h6 class="card-text">' + productId + '</h6>'+
+                '<p class="card-text text-right">' + productPrice + '€</p>'+
+            '</div>'+
+        ''+
     '</div>';
 }
 
 function rewritePrice (price){
-    return price/100;
+    return "" + price/100 + ",00 ";
 }
 
 function getAll (url, divId) {
     fetch(url)
     .then( function (response) {
-        // document.getElementById('name').innerHTML = results.json().name.value;
         if(response.ok) {
-            // console.log(response.json());
             return response.json();
           } else {
             console.log('Mauvaise réponse du réseau');
@@ -43,7 +44,7 @@ function getAll (url, divId) {
         console.log(value);
         let list = value;
         for (let element of list){
-            createDiv(divId, element.name, rewritePrice(element.price), element.description, element.imageUrl);
+            createDiv(divId, element.name, rewritePrice(element.price), element.description, element._id, element.imageUrl);
         }
     })
     .catch(function (err){
