@@ -2,15 +2,32 @@ let url = 'https://algicquel.github.io/AlexandreGicquel_5_15072021/back/routes/c
 let url2 = 'http://localhost:3000/api/cameras';
 let url3 = 'https://algicquel.github.io/AlexandreGicquel_5_15072021/back/api/cameras'
 let url4 = 'https://oc-devweb-p5-api.herokuapp.com/api/cameras';
+let url5 = 'https://oc-devweb-p5-api.herokuapp.com/api/teddies';
+let url6 = 'https://oc-devweb-p5-api.herokuapp.com/api/furniture';
 
-function createDiv(productName, productPrice, productDesc) {
-    document.getElementById('cameras').innerHTML+=
-    '<div id=""><span class="label-name">Name: </span><span class="name">'+productName+'</span></div>'+
-    '<div id=""><span class="label-price">Price: </span><span class="price">'+productPrice+'€</span></div>'+
-    '<div id=""><span class="label-description">Description: </span><span class="description">'+productDesc+'</span></div>';
+let urlImg = 'https://m.media-amazon.com/images/I/71yf785aBmL._AC_SX450_.jpg';
+
+function createDiv(divId, productName, productPrice, productDesc, imgUrl) {
+    
+    document.getElementById(divId).innerHTML+=
+    // '<div id="" class="col"><span class="label-name">Name: </span><span class="name">'+productName+'</span></div>'+
+    // '<div id="" class="col"><span class="label-price">Price: </span><span class="price">'+productPrice+'€</span></div>'+
+    // '<div id="" class="col"><span class="label-description">Description: </span><span class="description">'+productDesc+'</span></div>';
+    '<div class="card bg-light col-lg-6 col-xl-4 mt-2">'+
+        '<img class=”card-img-top” src=”' + imgUrl + '” alt=”' + productDesc + '”>'+
+        '<div class="card-body">'+
+            '<h5 class="card-title">' + productName + '</h5>'+
+            '<p class="card-text text-right">' + productPrice + '€</p>'+
+        '</div>'+
+    '</div>';
 }
 
-fetch(url4)
+function rewritePrice (price){
+    return price/100;
+}
+
+function getAll (url, divId) {
+    fetch(url)
     .then( function (response) {
         // document.getElementById('name').innerHTML = results.json().name.value;
         if(response.ok) {
@@ -24,12 +41,17 @@ fetch(url4)
     })
     .then(function (value){
         console.log(value);
-        let cameras = value;
-        for (let camera of cameras){
-            createDiv(camera.name, camera.price, camera.description);
+        let list = value;
+        for (let element of list){
+            createDiv(divId, element.name, rewritePrice(element.price), element.description, element.imageUrl);
         }
     })
     .catch(function (err){
         //catch error
         console.error(err);
     })
+}
+
+getAll(url4, 'cameras');
+getAll(url5, 'teddies');
+getAll(url6, 'furniture');

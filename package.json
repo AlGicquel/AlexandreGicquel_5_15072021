@@ -1,0 +1,22 @@
+{
+  "name": "alexandregicquel_5_15072021",
+  "version": "1.0.0",
+  "description": "",
+  "main": "javascript.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlGicquel/AlexandreGicquel_5_15072021.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlGicquel/AlexandreGicquel_5_15072021/issues"
+  },
+  "homepage": "https://github.com/AlGicquel/AlexandreGicquel_5_15072021#readme",
+  "dependencies": {
+    "bootstrap": "^5.0.2"
+  }
+}
