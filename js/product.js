@@ -1,4 +1,11 @@
 let url = 'https://oc-devweb-p5-api.herokuapp.com/api/cameras/5be1ed3f1c9d44000030b061';
+let url2 = 'https://oc-devweb-p5-api.herokuapp.com/api/';
+
+function getUrl () {
+    const productType = new URL(location.href).searchParams.get("productType");
+    const productId = new URL(location.href).searchParams.get("id");
+    return url2 + productType + '/' + productId;
+}
 
 function getById(url) {
     fetch(url)
@@ -20,4 +27,5 @@ function getById(url) {
     })
 }
 
+console.log(getUrl());
 getById(url);

@@ -14,6 +14,7 @@ function createDiv(divId, productName, productPrice, productDesc, productId, img
     // '<div id="" class="col"><span class="label-price">Price: </span><span class="price">'+productPrice+'€</span></div>'+
     // '<div id="" class="col"><span class="label-description">Description: </span><span class="description">'+productDesc+'</span></div>';
     '<div class="card bg-light col-lg-6 col-xl-4 mt-2 px-0">'+
+        // '<a class="stretched-link" href="pages/product.html/?productType=' + divId + '/?id=' + productId + '"></a>'+
         '<a class="stretched-link" href="pages/product.html"></a>'+
             '<img class=”card-img-top rounded-top” src=' + imgUrl + ' alt=”' + productDesc + '”>'+
             '<div class="card-body">'+
