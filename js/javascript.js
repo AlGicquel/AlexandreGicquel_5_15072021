@@ -1,29 +1,26 @@
-let url = 'https://algicquel.github.io/AlexandreGicquel_5_15072021/back/routes/camera/';
-let url2 = 'http://localhost:3000/api/cameras';
-let url3 = 'https://algicquel.github.io/AlexandreGicquel_5_15072021/back/api/cameras'
-let url4 = 'https://oc-devweb-p5-api.herokuapp.com/api/cameras';
-let url5 = 'https://oc-devweb-p5-api.herokuapp.com/api/teddies';
-let url6 = 'https://oc-devweb-p5-api.herokuapp.com/api/furniture';
+const urlCameras = 'https://oc-devweb-p5-api.herokuapp.com/api/cameras';
+const urlTeddies = 'https://oc-devweb-p5-api.herokuapp.com/api/teddies';
+const urlFurniture = 'https://oc-devweb-p5-api.herokuapp.com/api/furniture';
 
-let urlImg = 'https://m.media-amazon.com/images/I/71yf785aBmL._AC_SX450_.jpg';
 
-function createDiv(divId, productName, productPrice, productDesc, productId, imgUrl) {
+function createDiv(divId, product) {
     
     document.getElementById(divId).innerHTML+=
-    // '<div id="" class="col"><span class="label-name">Name: </span><span class="name">'+productName+'</span></div>'+
-    // '<div id="" class="col"><span class="label-price">Price: </span><span class="price">'+productPrice+'€</span></div>'+
-    // '<div id="" class="col"><span class="label-description">Description: </span><span class="description">'+productDesc+'</span></div>';
+    
     '<div class="card bg-light col-lg-6 col-xl-4 mt-2 px-0">'+
-        // '<a class="stretched-link" href="pages/product.html/?productType=' + divId + '/?id=' + productId + '"></a>'+
-        '<a class="stretched-link" href="pages/product.html"></a>'+
-            '<img class=”card-img-top rounded-top” src=' + imgUrl + ' alt=”' + productDesc + '”>'+
+        '<a class="stretched-link" href="pages/product.html?productType=' + divId + '&id=' + product._id + '"></a>'+
+            '<img class=”card-img-top rounded-top” src="' + product.imageUrl + '" alt=” ”>'+
             '<div class="card-body">'+
-                '<h5 class="card-title">' + productName + '</h5>'+
-                '<h6 class="card-text">' + productId + '</h6>'+
-                '<p class="card-text text-right">' + productPrice + '€</p>'+
+                '<h5 class="card-title">' + product.name + '</h5>'+
+                '<h6 class="card-text">' + product._id + '</h6>'+
+                '<p class="card-text text-right">' + product.price + '€</p>'+
             '</div>'+
         ''+
     '</div>';
+}
+
+function createDivJS (divId, product) {
+    document.getElementById(divId)
 }
 
 function rewritePrice (price){
@@ -38,14 +35,12 @@ function getAll (url, divId) {
           } else {
             console.log('Mauvaise réponse du réseau');
           }
-        
-
     })
     .then(function (value){
         console.log(value);
         let list = value;
         for (let element of list){
-            createDiv(divId, element.name, rewritePrice(element.price), element.description, element._id, element.imageUrl);
+            createDiv(divId, element);
         }
     })
     .catch(function (err){
@@ -54,6 +49,6 @@ function getAll (url, divId) {
     })
 }
 
-getAll(url4, 'cameras');
-getAll(url5, 'teddies');
-getAll(url6, 'furniture');
+getAll(urlCameras, 'cameras');
+getAll(urlTeddies, 'teddies');
+getAll(urlFurniture, 'furniture');

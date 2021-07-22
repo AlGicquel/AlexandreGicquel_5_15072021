@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="../css/styles.css" />
 
     <script src="../js/product.js"></script>
+    <!-- <script src="../js/cart.js"></script> -->
+
 
     <title>Orinoco</title>
     <meta name="description" content="site de commerce en ligne">
@@ -22,7 +24,7 @@
     <div class="bg-light sticky-top">
         <div class="container">
             <nav class="col navbar navbar-expand">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="../index.html">
                     <img src="../img/logo.png" alt="Logo Orinoco" class="logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
@@ -31,7 +33,7 @@
                 <div id="navbarContent" class="collapse navbar-collapse">
                     <ul class="navbar-nav justify-content-end">
                         <li class="nav-item active">
-                            <a class="nav-link" href="index.html">Accueil</a>
+                            <a class="nav-link" href="../index.html">Accueil</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Panier</a>
@@ -45,11 +47,28 @@
 
     <div class="container">
         <div class="card bg-light mt-3">
-            <img id="productImg" class=”card-img-top” src=”” alt=””>
+            <img id="productImg" class="card-img-top rounded-top" src="" alt=””>
             <div class="card-body">
-                <h1 id="productName" class="card-title">camera</h1>
+                <div class="row d-flex justify-content-between">
+
+                    <h1 id="productName" class="col card-title text-primary">camera</h1>
+                    <h2 id="productPrice" class="col card-text text-right">72€</h2>
+                </div>
                 <p id="productDesc" class="card-text">qmlsdkfj</p>
-                <h2 id="productPrice" class="card-text text-right">72€</h2>
+                <form action="post" class="">
+                    <label for="options" class="row d-flex">
+                        <span id="option-label" class="col text-right">Option : </span>
+                        <select name="options" id="option-select" class="form-select col">
+                            <!-- <option value="" class="selected disabled">Selectionez une option</option> -->
+                        </select>
+                    </label>
+                    <label for="quantity" class="row d-flex">
+                        <span id="quantity-label" class="col text-right">Quantité : </span>
+                        <input id="quantityInput" type="number" class="form-control col" min="1" value="1">
+                    </label>
+                    <div class="btn btn-primary mx-auto" id="addToCart">Ajouter au panier</div>
+                    
+                </form>
             </div>
         </div>
 
