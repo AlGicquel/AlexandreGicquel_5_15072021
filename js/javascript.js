@@ -9,7 +9,7 @@ function createDiv(divId, product) {
     
     '<div class="card bg-light col-lg-6 col-xl-4 mt-2 px-0">'+
         '<a class="stretched-link" href="pages/product.html?productType=' + divId + '&id=' + product._id + '"></a>'+
-            '<img class=”card-img-top rounded-top” src="' + product.imageUrl + '" alt=” ”>'+
+            '<img class="card-img-top rounded-top" src="' + product.imageUrl + '" alt="">'+
             '<div class="card-body">'+
                 '<h5 class="card-title">' + product.name + '</h5>'+
                 '<h6 class="card-text">' + product._id + '</h6>'+

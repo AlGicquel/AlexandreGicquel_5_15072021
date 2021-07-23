@@ -1,40 +1,23 @@
 let urlApi = 'https://oc-devweb-p5-api.herokuapp.com/api/';
+let urlDummy = 'https://oc-devweb-p5-api.herokuapp.com/api/cameras/5be1ed3f1c9d44000030b061';
 
 let cart = [];
 
-// function addToCart () {
-    document.getElementById('addToCart').addEventListener("click", function () {
-        console.log('qmlskdjf');
-        const productType = new URL(location.href).searchParams.get("productType"); 
-        const productId = new URL(location.href).searchParams.get("id");
-        fetch(urlApi + productType + '/' + productId)
-        .then( function (response) {
-            if(response.ok) {
-                return response.json();
-              } else {
-                console.log('Mauvaise réponse du réseau');
-              }
-        })
-        .then( function (product) {
-            const option = document.getElementById('option-select').nodeValue;
-            const quantity = document.getElementById('quantityInput').nodeValue;
-            let cartObject = new CartObject (productType, product, option, quantity);
-            console.log(cartObject);
-        })
+getCart();
 
-        // let cartObject = {
-        //     id= productId,
-        //     option = productOption,
-        //     qt = quantity
-        // }
-        // cart.push(cartObject);
-    })
-// }
+function getCart () {
+    cart = sessionStorage;
+    console.log(cart);
+}
 
-function deleteFromCart (productId) {
-    for (let i=0 ; i<cart.length ; i++) {
-        if (cart[i].id === productId) {
-            cart.splice(i,1);
-        }
+function fillCart () {
+    for (cartObjet of cart) {
+        
     }
+}
+
+
+
+function deleteFromCart () {
+    
 }
