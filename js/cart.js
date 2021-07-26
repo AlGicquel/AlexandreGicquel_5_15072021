@@ -1,5 +1,6 @@
 let urlApi = 'https://oc-devweb-p5-api.herokuapp.com/api/';
 let urlDummy = 'https://oc-devweb-p5-api.herokuapp.com/api/cameras/5be1ed3f1c9d44000030b061';
+const urlLocal = 'http://localhost:3000/api/';
 
 let products = [];
 let productsFiltered = [];
@@ -9,6 +10,7 @@ getCart();
 createMapWithQuantity();
 filterProducts();
 fillCart();
+initiateSubmit();
 
 //Récupère le panier et le stock dans un tableau products
 function getCart () {
@@ -116,4 +118,80 @@ function isIncludedInProductsFiltered (id) {
         }
     }
     return result;
+}
+
+function initiateSubmit () {
+    document.getElementById('submit').addEventListener('click', function (event) {
+        event.preventDefault();
+        console.log('bouton cliqué');
+        let contact = {
+            firstName: document.getElementById("firstName").value,
+            lastName: document.getElementById("lastName").value,
+            adress: document.getElementById("adress").value,
+            city: document.getElementById("city").value,
+            email: document.getElementById("email").value
+        } 
+
+        let productId = [];
+        for (product of products) {
+            productId.push(product._id);
+        }
+        console.log('productID',productId)
+
+        let order = {
+            contact : contact,
+            products : productId
+        }
+
+        console.log('order',order);
+        console.log('orderJSON', JSON.stringify(order))
+
+        // return new Promise((response)=>{
+        //     var request = new XMLHttpRequest();
+        //     request.onreadystatechange = function() {
+        //       if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
+        //         //ajout de la réponse dans le localstorage
+        //         localStorage.setItem("order_id", this.responseText);
+        //         response(JSON.parse(this.responseText));
+        //       }
+        //     }
+        //     request.open("POST", "http://localhost:3000/api/furniture/order");
+        //     request.setRequestHeader("Content-Type", "application/json");
+        //     request.send(JSON.stringify(order));
+        //   });
+
+        fetch(urlLocal+'cameras/order', {
+            method: "POST",
+            headers: {
+              'Accept': 'application/json', 
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(order)
+          })
+        .then(
+            function(res) {
+                if (res.ok) {
+                    console.log('ok')
+                  return res.json();
+                } else {
+                    console.log(res)
+                    console.log('Mauvaise réponse du serveur.')
+                }
+            }
+        )
+        .catch(function (err) {
+            console.log(err)
+        })
+        .then(function(value) {
+            console.log(value);
+        });
+
+        // request('POST', 'http://localhost:3000/api/cameras/order', function(response) {
+        //     console.log("resp",response);
+        //     let orderId = response.orderId;
+        //     localStorage.clear();
+        //     localStorage.setItem("totalAmount", totalAmount);
+        //     localStorage.setItem("orderId", orderId);
+        // }, orderData);
+    })
 }

@@ -1,6 +1,7 @@
 const urlCameras = 'https://oc-devweb-p5-api.herokuapp.com/api/cameras';
 const urlTeddies = 'https://oc-devweb-p5-api.herokuapp.com/api/teddies';
 const urlFurniture = 'https://oc-devweb-p5-api.herokuapp.com/api/furniture';
+const urlLocal = 'http://localhost:3000/api/';
 
 
 function createDiv(divId, product) {
@@ -45,6 +46,9 @@ function getAll (url, divId) {
     })
 }
 
-getAll(urlCameras, 'cameras');
-getAll(urlTeddies, 'teddies');
-getAll(urlFurniture, 'furniture');
+// getAll(urlCameras, 'cameras');
+// getAll(urlTeddies, 'teddies');
+// getAll(urlFurniture, 'furniture');
+getAll(urlLocal + 'cameras', 'cameras');
+getAll(urlLocal + 'teddies', 'teddies');
+getAll(urlLocal + 'furniture', 'furniture');

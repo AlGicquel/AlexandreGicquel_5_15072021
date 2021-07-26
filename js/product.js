@@ -1,5 +1,7 @@
 let urlDummie = 'https://oc-devweb-p5-api.herokuapp.com/api/cameras/5be1ed3f1c9d44000030b061';
 let urlApi = 'https://oc-devweb-p5-api.herokuapp.com/api/';
+const urlLocal = 'http://localhost:3000/api/';
+
 
 //Récupère les données de l'url
 const productType = new URL(location.href).searchParams.get("productType"); 
@@ -11,7 +13,7 @@ const productId = new URL(location.href).searchParams.get("id");
 
 //Crée l'url où faire la requête à l'api
 function getUrl () {
-    return urlApi + productType + '/' + productId;
+    return urlLocal + productType + '/' + productId;
 }
 
 //Se sert des données de l'url pour afficher un nom d'option personnalisé selon le type de produit
