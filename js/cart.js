@@ -177,6 +177,10 @@ function initiateSubmit () {
         })
         .then(function(value) {
             console.log(value);
+            // sessionStorage.clear();
+            sessionStorage.setItem('orderId', value.orderId)
+            console.log(sessionStorage);
+            document.location.href = 'confirmation.html';
         });
         
     })

@@ -12,10 +12,10 @@
 	<!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
     <link rel="stylesheet" href="../css/styles.css" />
 
-    <script src="../js/product.js"></script>
+    <!-- <script src="../js/product.js"></script> -->
     <!-- <script src="../js/cart.js"></script> -->
-
-
+    
+    
     <title>Orinoco</title>
     <meta name="description" content="site de commerce en ligne">
 </head>
@@ -28,7 +28,7 @@
                     <img src="../img/logo.png" alt="Logo Orinoco" class="logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
-                <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
                 </button>
                 <div id="navbarContent" class="collapse navbar-collapse">
                     <ul class="navbar-nav justify-content-end">
@@ -43,16 +43,21 @@
             </nav>
         </div>
     </div>
-
-    <div class="container mb-3">
-        
+    
+    <div class="container my-3">
+        <h1>Récapitulatif</h1>
+        <p class="jumbotron">
+            Votre commande n°<span id="orderId"></span> est bien passée.
+        </p>
+        <a href="../index.html" class="btn btn-primary" id="home">Retourner à l'accueil</a>
     </div>
-
-       
+    
+    
     <div class="bg-primary text-white mt-3 pt-3 pb-3 text-center">
         <div class="container">
             Footer
         </div>
     </div>
+    <script src="../js/recap.js"></script>
 </body>
 </html>
