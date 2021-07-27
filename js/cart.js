@@ -120,24 +120,30 @@ function isIncludedInProductsFiltered (id) {
     return result;
 }
 
+//construit les fonctionnalité du bouton submit
 function initiateSubmit () {
     document.getElementById('submit').addEventListener('click', function (event) {
+        //empèche la redirection
         event.preventDefault();
         console.log('bouton cliqué');
+
+        //crée l'objet contact
         let contact = {
             firstName: document.getElementById("firstName").value,
             lastName: document.getElementById("lastName").value,
-            adress: document.getElementById("adress").value,
+            address: document.getElementById("address").value,
             city: document.getElementById("city").value,
             email: document.getElementById("email").value
         } 
 
+        //boucle sur la liste de products pour en créer une nouvelle qui recupère seulement les ID
         let productId = [];
         for (product of products) {
             productId.push(product._id);
         }
         console.log('productID',productId)
 
+        //crée l'objet order à mettre en body de la requête
         let order = {
             contact : contact,
             products : productId
@@ -146,28 +152,15 @@ function initiateSubmit () {
         console.log('order',order);
         console.log('orderJSON', JSON.stringify(order))
 
-        // return new Promise((response)=>{
-        //     var request = new XMLHttpRequest();
-        //     request.onreadystatechange = function() {
-        //       if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
-        //         //ajout de la réponse dans le localstorage
-        //         localStorage.setItem("order_id", this.responseText);
-        //         response(JSON.parse(this.responseText));
-        //       }
-        //     }
-        //     request.open("POST", "http://localhost:3000/api/furniture/order");
-        //     request.setRequestHeader("Content-Type", "application/json");
-        //     request.send(JSON.stringify(order));
-        //   });
-
+        
         fetch(urlLocal+'cameras/order', {
             method: "POST",
             headers: {
-              'Accept': 'application/json', 
-              'Content-Type': 'application/json'
+                'Accept': 'application/json', 
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(order)
-          })
+        })
         .then(
             function(res) {
                 if (res.ok) {
@@ -178,20 +171,13 @@ function initiateSubmit () {
                     console.log('Mauvaise réponse du serveur.')
                 }
             }
-        )
+            )
         .catch(function (err) {
             console.log(err)
         })
         .then(function(value) {
             console.log(value);
         });
-
-        // request('POST', 'http://localhost:3000/api/cameras/order', function(response) {
-        //     console.log("resp",response);
-        //     let orderId = response.orderId;
-        //     localStorage.clear();
-        //     localStorage.setItem("totalAmount", totalAmount);
-        //     localStorage.setItem("orderId", orderId);
-        // }, orderData);
+        
     })
 }
