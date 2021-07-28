@@ -1,3 +1,5 @@
+
+
 let urlApi = 'https://oc-devweb-p5-api.herokuapp.com/api/';
 let urlDummy = 'https://oc-devweb-p5-api.herokuapp.com/api/cameras/5be1ed3f1c9d44000030b061';
 const urlLocal = 'http://localhost:3000/api/';
@@ -5,12 +7,21 @@ const urlLocal = 'http://localhost:3000/api/';
 let products = [];
 let productsFiltered = [];
 
+coreFunction();
 
-getCart();
-createMapWithQuantity();
-filterProducts();
-fillCart();
-initiateSubmit();
+function coreFunction () {
+    getCart();
+    if (products !== null) {
+        document.getElementById('emptyCart').style.display = 'none';
+        createMapWithQuantity();
+        filterProducts();
+        fillCart();
+        initiateSubmit();
+        initiateClearCart();
+    } else {
+        displayEmptyCart();
+    }
+}
 
 //Récupère le panier et le stock dans un tableau products
 function getCart () {
@@ -197,4 +208,19 @@ function initiateSubmit () {
         });
         
     })
+}
+
+function initiateClearCart () {
+    document.getElementById('clearCart').addEventListener('click', function () {
+        console.log('button clicked')
+        sessionStorage.clear();
+        coreFunction();
+
+    })
+}
+
+function displayEmptyCart () {
+    document.getElementById('cart-container').style.display = 'none';
+    document.getElementById('emptyCart').style.display = 'block';
+
 }
