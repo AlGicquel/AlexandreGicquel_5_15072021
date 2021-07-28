@@ -48,9 +48,9 @@ function getAll (url, divId) {
     })
 }
 
-// getAll(urlCameras, 'cameras');
-// getAll(urlTeddies, 'teddies');
-// getAll(urlFurniture, 'furniture');
-getAll(urlLocal + 'cameras', 'cameras');
-getAll(urlLocal + 'teddies', 'teddies');
-getAll(urlLocal + 'furniture', 'furniture');
+getAll(urlCameras, 'cameras');
+getAll(urlTeddies, 'teddies');
+getAll(urlFurniture, 'furniture');
+// getAll(urlLocal + 'cameras', 'cameras');
+// getAll(urlLocal + 'teddies', 'teddies');
+// getAll(urlLocal + 'furniture', 'furniture');

@@ -164,7 +164,7 @@ function initiateSubmit () {
         console.log('orderJSON', JSON.stringify(order))
 
         
-        fetch(urlLocal+'cameras/order', {
+        fetch(urlApi+'cameras/order', {
             method: "POST",
             headers: {
                 'Accept': 'application/json', 

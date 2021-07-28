@@ -13,7 +13,7 @@ const productId = new URL(location.href).searchParams.get("id");
 
 //Crée l'url où faire la requête à l'api
 function getUrl () {
-    return urlLocal + productType + '/' + productId;
+    return urlApi + productType + '/' + productId;
 }
 
 //Se sert des données de l'url pour afficher un nom d'option personnalisé selon le type de produit
@@ -64,15 +64,16 @@ function getById(url) {
 function setupAddToCart (product) {
     document.getElementById('addToCart').addEventListener("click", function () {
 
-        productsArr = []
+        let productsArr = [];
         let productsJSON = sessionStorage.getItem('products');
         if (productsJSON === null) {
-            productsArr.push(product);
+            addToCart(product, productsArr);
+            console.log('productsArr', productsArr);
             sessionStorage.setItem('products', JSON.stringify(productsArr));
             console.log(sessionStorage);
         } else {
             productsArr = JSON.parse(productsJSON);
-            productsArr.push(product);
+            addToCart(product, productsArr);
             productsJSON = JSON.stringify(productsArr);
             sessionStorage.setItem('products', productsJSON);
             console.log(productsArr);
@@ -80,6 +81,13 @@ function setupAddToCart (product) {
 
         console.log(sessionStorage);
     })
+}
+
+function addToCart (product, productsArr) {
+    let quantity = document.getElementById('quantityInput').value;
+    for (let i = 0; i<quantity; i++) {
+        productsArr.push(product);
+    }
 }
 
 
