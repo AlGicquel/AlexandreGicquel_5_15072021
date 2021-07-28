@@ -8,13 +8,15 @@ function createDiv(divId, product) {
     
     document.getElementById(divId).innerHTML+=
     
-    `<div class="card bg-light col-lg-6 col-xl-4 mt-2 px-0">
-        <a class="stretched-link" href="pages/product.html?productType=${divId}&id=${product._id}"></a>
-        <img class="card-img-top rounded-top" src="${product.imageUrl}" alt="">
-        <div class="card-body">
-            <h5 class="card-title">${product.name}</h5>
-            <h6 class="card-text">${product._id}</h6>
-            <p class="card-text text-right">${product.price/100},00 €</p>
+    `<div class="col-md-6 col-xl-4 mt-2">
+        <div class="card bg-light  px-0">
+            <a class="stretched-link" href="pages/product.html?productType=${divId}&id=${product._id}"></a>
+            <img class="card-img-top rounded-top" src="${product.imageUrl}" alt="${product.description}">
+            <div class="card-body">
+                <h5 class="card-title">${product.name}</h5>
+                <h6 class="card-text">${product._id}</h6>
+                <p class="card-text text-right">${product.price/100},00 €</p>
+            </div>
         </div>
     </div>`;
 }

@@ -18,6 +18,17 @@ function getCart () {
     console.log('products',products);
 }
 
+// function getCart () {
+//     let sesSto = JSON.parse(sessionStorage.getItem('products'));
+//     if (sesSto !== null) {
+//         products = sesSto;
+//         console.log('products',products);
+//         return true;
+//     } else {
+//         return false;
+//     }
+// }
+
 // Crée une cart pour chaque element du tableau products
 function fillCart () {
     document.getElementById('total-article').innerHTML = `Nombre total d'article(s) : ${products.length}`;
@@ -179,6 +190,8 @@ function initiateSubmit () {
             console.log(value);
             // sessionStorage.clear();
             sessionStorage.setItem('orderId', value.orderId)
+            sessionStorage.setItem('totalPrice', calculateTotalCart());
+            sessionStorage.setItem('totalNumber', products.length)
             console.log(sessionStorage);
             document.location.href = 'confirmation.html';
         });
