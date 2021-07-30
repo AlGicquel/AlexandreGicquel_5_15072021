@@ -68,15 +68,12 @@ function setupAddToCart (product) {
         let productsJSON = sessionStorage.getItem('products');
         if (productsJSON === null) {
             addToCart(product, productsArr);
-            console.log('productsArr', productsArr);
             sessionStorage.setItem('products', JSON.stringify(productsArr));
-            console.log(sessionStorage);
         } else {
             productsArr = JSON.parse(productsJSON);
             addToCart(product, productsArr);
             productsJSON = JSON.stringify(productsArr);
             sessionStorage.setItem('products', productsJSON);
-            console.log(productsArr);
         }
 
         console.log(sessionStorage);

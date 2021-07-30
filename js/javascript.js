@@ -4,10 +4,9 @@ const urlFurniture = 'https://oc-devweb-p5-api.herokuapp.com/api/furniture';
 const urlLocal = 'http://localhost:3000/api/';
 
 
+// Crée une div cart pour chaque element récupéré
 function createDiv(divId, product) {
-    
     document.getElementById(divId).innerHTML+=
-    
     `<div class="col-md-6 col-xl-4 mt-2">
         <div class="card bg-light  px-0">
             <a class="stretched-link" href="pages/product.html?productType=${divId}&id=${product._id}"></a>
@@ -25,7 +24,7 @@ function createDivJS (divId, product) {
     document.getElementById(divId)
 }
 
-
+// Récupère les données de l'api
 function getAll (url, divId) {
     fetch(url)
     .then( function (response) {
@@ -36,9 +35,7 @@ function getAll (url, divId) {
           }
     })
     .then(function (value){
-        console.log(value);
-        let list = value;
-        for (let element of list){
+        for (let element of value){
             createDiv(divId, element);
         }
     })
@@ -48,6 +45,7 @@ function getAll (url, divId) {
     })
 }
 
+// importe les trois types de listes
 getAll(urlCameras, 'cameras');
 getAll(urlTeddies, 'teddies');
 getAll(urlFurniture, 'furniture');

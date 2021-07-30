@@ -1,25 +1,25 @@
-
-
 let urlApi = 'https://oc-devweb-p5-api.herokuapp.com/api/';
-let urlDummy = 'https://oc-devweb-p5-api.herokuapp.com/api/cameras/5be1ed3f1c9d44000030b061';
 const urlLocal = 'http://localhost:3000/api/';
 
+// Liste de produits a envoyer
 let products = [];
+// Liste de produits a afficher
 let productsFiltered = [];
 
 coreFunction();
 
+// Fonction principale qui appelle toutes les autres pour la mise en page
 function coreFunction () {
     getCart();
     if (products !== null) {
-        document.getElementById('emptyCart').style.display = 'none';
+        isCartEmpty(false);
         createMapWithQuantity();
         filterProducts();
         fillCart();
         initiateSubmit();
         initiateClearCart();
     } else {
-        displayEmptyCart();
+        isCartEmpty(true);
     }
 }
 
@@ -28,17 +28,6 @@ function getCart () {
     products = JSON.parse(sessionStorage.getItem('products'));
     console.log('products',products);
 }
-
-// function getCart () {
-//     let sesSto = JSON.parse(sessionStorage.getItem('products'));
-//     if (sesSto !== null) {
-//         products = sesSto;
-//         console.log('products',products);
-//         return true;
-//     } else {
-//         return false;
-//     }
-// }
 
 // Crée une cart pour chaque element du tableau products
 function fillCart () {
@@ -65,7 +54,12 @@ function createDivCartObject (product) {
                     <p class="card-text">${product.price/100},00 €</p>
                     <p class="card-text">Quantité : ${sessionStorage.getItem(product._id)}</p>
                     <p class="card-text">Total : ${calculateTotalPrice(product)},00 € </p>
-                    <p class="btn btn-danger text-right" id="delete-${product._id}">Supprimer</p>
+                    <button 
+                        class="btn btn-danger text-right" 
+                        id="delete-${product._id}"
+                        onclick="deleteItem(${product._id})">
+                            Supprimer
+                    </button>
                 </div>
             </div>
         </div>
@@ -109,7 +103,7 @@ function createMapWithQuantity () {
             sessionStorage.setItem(`${product._id}`, `${quantity}`)
         }
     }
-    console.log("SessionStorage : ",sessionStorage)
+    console.log("SessionStorage : ", sessionStorage)
 }
 
 //retire de la session storage toutes les clés de quantité
@@ -174,38 +168,42 @@ function initiateSubmit () {
         console.log('order',order);
         console.log('orderJSON', JSON.stringify(order))
 
-        
-        fetch(urlApi+'cameras/order', {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json', 
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(order)
-        })
-        .then(
-            function(res) {
-                if (res.ok) {
-                    console.log('ok')
-                  return res.json();
+        if (testContact(contact)){
+
+            fetch(urlApi+'cameras/order', {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json', 
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(order)
+            })
+            .then(
+                function(res) {
+                    if (res.ok) {
+                        console.log('ok')
+                        return res.json();
                 } else {
                     console.log(res)
                     console.log('Mauvaise réponse du serveur.')
                 }
             }
             )
-        .catch(function (err) {
-            console.log(err)
-        })
-        .then(function(value) {
-            console.log(value);
-            // sessionStorage.clear();
-            sessionStorage.setItem('orderId', value.orderId)
-            sessionStorage.setItem('totalPrice', calculateTotalCart());
-            sessionStorage.setItem('totalNumber', products.length)
-            console.log(sessionStorage);
-            document.location.href = 'confirmation.html';
-        });
+            .catch(function (err) {
+                console.log(err)
+            })
+            .then(function(value) {
+                console.log(value);
+                // sessionStorage.clear();
+                sessionStorage.setItem('orderId', value.orderId)
+                sessionStorage.setItem('totalPrice', calculateTotalCart());
+                sessionStorage.setItem('totalNumber', products.length)
+                console.log(sessionStorage);
+                document.location.href = 'confirmation.html';
+            });
+        } else {
+            alert('Les données de contact saisies sont incorrects.')
+        }
         
     })
 }
@@ -219,8 +217,42 @@ function initiateClearCart () {
     })
 }
 
-function displayEmptyCart () {
-    document.getElementById('cart-container').style.display = 'none';
-    document.getElementById('emptyCart').style.display = 'block';
+function isCartEmpty (bool) {
+    if (bool) {
+        document.getElementById('cart-container').style.display = 'none';
+        document.getElementById('emptyCart').style.display = 'block';
+    } else {
+        document.getElementById('cart-container').style.display = 'block';
+        document.getElementById('emptyCart').style.display = 'none';
+    }
 
+}
+
+function deleteItem (id) {
+    console.log('deleteitem clicked')
+    for (let i=0; i<products.length; i++) {
+        if (product._id === id) {
+            products.splice(i,1);
+        }
+    }
+    sessionStorage.setItem('products', JSON.stringify(products));
+    coreFunction();
+}
+
+function testContact (contact) {
+    const testName = /[A-Za-z éèçàêëñöùä\-]/;
+    const testZip = /[0-9]{5}/;
+    const testAddress = /(^[0-9]{1,4})([A-Za-z éèçàêëñöùä\-]{1,100})/;
+    const testEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (testName.test(contact.firstName) &&
+            testName.test(contact.lastName) &&
+            testZip.test(contact.city) &&
+            testAddress.test(contact.address) &&
+            testEmail.test(contact.email)
+        )
+        {
+            return true;
+    } else {
+        return false;
+    }
 }
