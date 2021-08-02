@@ -209,7 +209,7 @@ function initiateSubmit () {
     document.getElementById('submit').addEventListener('click', function (event) {
         //empèche la redirection
         event.preventDefault();
-        console.log('bouton cliqué');
+        console.log('bouton submit cliqué');
 
         //crée l'objet contact
         let contact = {
