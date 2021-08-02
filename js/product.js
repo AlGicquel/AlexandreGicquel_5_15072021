@@ -65,18 +65,18 @@ function setupAddToCart (product) {
     document.getElementById('addToCart').addEventListener("click", function () {
 
         let productsArr = [];
-        let productsJSON = sessionStorage.getItem('products');
+        let productsJSON = localStorage.getItem('products');
         if (productsJSON === null) {
             addToCart(product, productsArr);
-            sessionStorage.setItem('products', JSON.stringify(productsArr));
+            localStorage.setItem('products', JSON.stringify(productsArr));
         } else {
             productsArr = JSON.parse(productsJSON);
             addToCart(product, productsArr);
             productsJSON = JSON.stringify(productsArr);
-            sessionStorage.setItem('products', productsJSON);
+            localStorage.setItem('products', productsJSON);
         }
-
-        console.log(sessionStorage);
+        // alert('Votre produit a bien été ajouté au panier.');
+        console.log(localStorage);
     })
 }
 

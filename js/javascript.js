@@ -20,9 +20,6 @@ function createDiv(divId, product) {
     </div>`;
 }
 
-function createDivJS (divId, product) {
-    document.getElementById(divId)
-}
 
 // Récupère les données de l'api
 function getAll (url, divId) {
@@ -47,8 +44,8 @@ function getAll (url, divId) {
 
 // importe les trois types de listes
 getAll(urlCameras, 'cameras');
-getAll(urlTeddies, 'teddies');
-getAll(urlFurniture, 'furniture');
+// getAll(urlTeddies, 'teddies');
+// getAll(urlFurniture, 'furniture');
 // getAll(urlLocal + 'cameras', 'cameras');
 // getAll(urlLocal + 'teddies', 'teddies');
 // getAll(urlLocal + 'furniture', 'furniture');

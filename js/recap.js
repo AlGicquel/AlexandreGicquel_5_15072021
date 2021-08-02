@@ -1,4 +1,4 @@
-console.log(sessionStorage)
-document.getElementById('orderId').innerHTML = sessionStorage.orderId;
-document.getElementById('totalPrice').innerHTML = sessionStorage.totalPrice;
-sessionStorage.clear()
+console.log(localStorage)
+document.getElementById('orderId').innerHTML = localStorage.orderId;
+document.getElementById('totalPrice').innerHTML = localStorage.totalPrice;
+localStorage.clear()
