@@ -1,7 +1,6 @@
-console.log(localStorage);
-
 let orderId = localStorage.getItem('orderId');
 
+// Affiche un message d'erreur si aucun orderId n'est en localstorage
 if (orderId === null) {
     document.getElementById('recap').style.display = 'none';
     document.getElementById('oops').style.display = 'block';

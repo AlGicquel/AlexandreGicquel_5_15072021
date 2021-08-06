@@ -60,7 +60,7 @@ function getById(url) {
     })
 }
 
-
+// Paramètre le bonton "ajouter au panier" en prenant en compte la quantité
 function setupAddToCart (product) {
     document.getElementById('addToCart').addEventListener("click", function () {
 
@@ -75,11 +75,12 @@ function setupAddToCart (product) {
             productsJSON = JSON.stringify(productsArr);
             localStorage.setItem('products', productsJSON);
         }
-        // alert('Votre produit a bien été ajouté au panier.');
-        console.log(localStorage);
+        alert('Votre produit a bien été ajouté au panier.');
+        // console.log(localStorage);
     })
 }
 
+// Ajoute le produit au panier
 function addToCart (product, productsArr) {
     let quantity = document.getElementById('quantityInput').value;
     for (let i = 0; i<quantity; i++) {

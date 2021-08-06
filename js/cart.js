@@ -28,7 +28,7 @@ function coreFunction () {
 //Récupère le panier et le stock dans un tableau products
 function getCart () {
     products = JSON.parse(localStorage.getItem('products'));
-    console.log('products',products);
+    // console.log('products',products);
 }
 
 //crée une liste de produits filtrés pour un meilleur affichage
@@ -38,7 +38,7 @@ function filterProducts () {
             productsFiltered.push(product)
         }
     }
-    console.log("productsFiltered : ",productsFiltered)
+    // console.log("productsFiltered : ",productsFiltered)
 }
 
 //verifie si l'id est déjà dans la liste productsFiltered
@@ -127,6 +127,7 @@ function calculateTotalCart () {
     return totalPrice/100;
 }
 
+// Calcule le prix total d'un article
 function calculateTotalPrice (product) {
     let quantity = JSON.parse(localStorage.getItem(product._id));
     return quantity * product.price / 100;
@@ -141,7 +142,7 @@ function calculateTotalPrice (product) {
 // bouton vider le panier
 function initiateClearCart () {
     document.getElementById('clearCart').addEventListener('click', function () {
-        console.log('button clicked')
+        // console.log('button clicked');
         localStorage.clear();
         coreFunction();
 
@@ -163,13 +164,10 @@ function isCartEmpty (bool) {
 // Supprime tous un produit du panier quelque soit la quantité
 // boucle sur elle meme pour empecher les problèmes d'index après le splice
 function deleteItem (id) {
-    console.log('delete button clicked')
-    console.log(localStorage);
-    for (let i=0; i<products.length; i++) {
+    for (let i=products.length-1; i>=0; i--) {
         let product = products[i];
         if (product._id === id) {
             products.splice(i,1);
-            deleteItem(id);
         }
     }
     localStorage.removeItem(`${id}`);
@@ -209,7 +207,7 @@ function initiateSubmit () {
     document.getElementById('submit').addEventListener('click', function (event) {
         //empèche la redirection
         event.preventDefault();
-        console.log('bouton submit cliqué');
+        // console.log('bouton submit cliqué');
 
         //crée l'objet contact
         let contact = {
@@ -225,7 +223,7 @@ function initiateSubmit () {
         for (product of products) {
             productId.push(product._id);
         }
-        console.log('productID',productId)
+        // console.log('productID',productId)
 
         //crée l'objet order à mettre en body de la requête
         let order = {
@@ -233,13 +231,13 @@ function initiateSubmit () {
             products : productId
         }
 
-        console.log('order',order);
-        console.log('orderJSON', JSON.stringify(order))
+        // console.log('order',order);
+        // console.log('orderJSON', JSON.stringify(order))
 
         // Test si les données des input sont corrects avant de faire le fetch
         if (testContact(contact)){
 
-
+            // Lance la requête fetch
             fetch(urlApi+'cameras/order', {
                 method: "POST",
                 headers: {
@@ -248,6 +246,7 @@ function initiateSubmit () {
                 },
                 body: JSON.stringify(order)
             })
+            // Vérifie si la réponse est bonne
             .then(
                 function(res) {
                     if (res.ok) {
@@ -259,19 +258,21 @@ function initiateSubmit () {
                     }
                 }
             )
+            // Lance affiche l'erreur dans la console s'il y en a une
             .catch(function (err) {
                 console.log(err)
             })
+            // Assigne l'orderId reçu par la requête et la met en localStorage 
+            // avec le total du panier et le nombre d'article puis redirige vers confirmation.html
             .then(function(value) {
-                console.log(value);
+                // console.log(value);
                 // localStorage.clear();
                 localStorage.setItem('orderId', value.orderId)
                 localStorage.setItem('totalPrice', calculateTotalCart());
                 localStorage.setItem('totalNumber', products.length)
-                console.log(localStorage);
                 document.location.href = 'confirmation.html';
             });
-        // Si les données sont incorrects affiche un message d'erreur
+        // Si les données de contact sont incorrects affiche un message d'erreur
         } else {
             alert('Les données de contact saisies sont incorrects.')
         }
